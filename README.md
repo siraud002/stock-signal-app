@@ -21,8 +21,6 @@ An AI-powered mobile application that helps users make better stock trading deci
 - [Node.js](https://nodejs.org/) with npm
 
 ### Setup Instructions
-Open `frontend/index.html` in a browser. For local API calls, ensure the FastAPI server is running on `http://localhost:8000`.
-
 
 ## Getting Started
 
@@ -39,9 +37,5 @@ uvicorn app.main:app --reload
 ```
 
 ## Backend API
-The backend exposes these endpoints:
 
-- `/price/{symbol}` – return the latest closing price for `symbol`.
-- `/signal/{symbol}` – compute a basic moving-average signal for `symbol`.
-- `/fetch_stock/{symbol}` – return price, moving average and signal in one response.
 
