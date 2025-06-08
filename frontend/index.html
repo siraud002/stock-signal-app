@@ -1,54 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Stock Signal Frontend</title>
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .card { border: 1px solid #ddd; padding: 20px; max-width: 300px; margin-top: 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,.1); }
-    button { margin-left: 10px; }
-  </style>
-</head>
-<body>
-  <div id="root"></div>
-  <script type="text/babel">
-    function App() {
-      const [symbol, setSymbol] = React.useState('');
-      const [stock, setStock] = React.useState(null);
-
-      const fetchStock = async () => {
-        if (!symbol) return;
-        try {
-          const res = await fetch('http://localhost:8000/fetch_stock/' + symbol);
-          if (!res.ok) throw new Error('Failed to fetch');
-          const data = await res.json();
-          setStock(data);
-        } catch (err) {
-          console.error(err);
-          setStock(null);
-        }
-      };
-
-      return (
-        <div>
-          <h1>Stock Signal</h1>
-          <input value={symbol} onChange={e => setSymbol(e.target.value)} placeholder="Symbol" />
-          <button onClick={fetchStock}>Fetch</button>
-          {stock && (
-            <div className="card">
-              <h2>{stock.symbol}</h2>
-              <p>Price: {stock.price}</p>
-              <p>Moving Average: {stock.moving_average}</p>
-              <p>Signal: {stock.signal}</p>
-            </div>
-          )}
-        </div>
-      );
-    }
-    ReactDOM.render(<App />, document.getElementById('root'));
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
