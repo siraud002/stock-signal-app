@@ -1,0 +1,3 @@
+# Stock Signal App
+
+🚀 First Commit — Learning Git and GitHub!
