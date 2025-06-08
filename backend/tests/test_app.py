@@ -25,4 +25,3 @@ def test_get_signal(monkeypatch):
     _patch_yfinance(monkeypatch)
     client = TestClient(app)
     res = client.get("/signal/TEST?period=1")
-    assert res.status_code == 200

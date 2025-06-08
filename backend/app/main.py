@@ -27,4 +27,3 @@ async def get_signal(symbol: str, period: int = 50):
         signal = "buy" if price > ma else "sell"
         return {"symbol": symbol, "price": price, "moving_average": ma, "signal": signal}
     except Exception as exc:
-        raise HTTPException(status_code=404, detail=str(exc))

@@ -1,7 +1,3 @@
-import React from 'react';
-import axios from 'axios';
-import './App.css';
-
 function App() {
   const [symbol, setSymbol] = React.useState('');
   const [data, setData] = React.useState(null);
@@ -48,6 +44,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
-
