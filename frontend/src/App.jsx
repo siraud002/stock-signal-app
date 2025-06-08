@@ -1,3 +1,7 @@
+import React from 'react';
+import axios from 'axios';
+import './App.css';
+
 function App() {
   const [symbol, setSymbol] = React.useState('');
   const [data, setData] = React.useState(null);
@@ -45,4 +49,5 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export default App;
+
