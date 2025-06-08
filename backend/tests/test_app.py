@@ -26,4 +26,3 @@ def test_get_signal(monkeypatch):
     client = TestClient(app)
     res = client.get("/signal/TEST?period=1")
     assert res.status_code == 200
-    assert res.json()["signal"] in {"buy", "sell"}

@@ -38,4 +38,7 @@ uvicorn app.main:app --reload
 
 ## Backend API
 
+- `/price/{symbol}` – return the latest closing price for `symbol`.
+- `/signal/{symbol}` – compute a basic moving-average signal for `symbol`.
+- `/fetch_stock/{symbol}` – return price, moving average and signal in one response.
 
