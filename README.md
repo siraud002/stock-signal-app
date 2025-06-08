@@ -33,15 +33,13 @@ flutter pub get
 
 # Run the Flutter app
 flutter run
+```
 
 
 ## Getting Started
 
 ### Backend Setup
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/stock-signal-app.git
-
 # Navigate to the backend
 cd stock-signal-app/backend
 
@@ -49,6 +47,12 @@ cd stock-signal-app/backend
 pip install -r requirements.txt
 
 # Run the FastAPI app
-uvicorn app:app --reload
+uvicorn app.main:app --reload
+```
 
+## Backend API
+The backend exposes two simple endpoints:
+
+- `/price/{symbol}` – return the latest closing price for `symbol`.
+- `/signal/{symbol}` – compute a basic moving-average signal for `symbol`.
 
