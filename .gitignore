@@ -192,3 +192,22 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Flutter
+build/
+.dart_tool/
+.flutter-plugins
+.packages
+.pub-cache/
+.pub/
+.idea/
+android/.gradle/
+android/captures/
+*.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Environment variables
+.env
