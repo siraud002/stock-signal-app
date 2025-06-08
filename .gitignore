@@ -3,6 +3,29 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+*.sqlite3
+instance/
+.webassets-cache
+*.db
+*.log
+*.pot
+*.py[cod]
+.pytest_cache/
+.tox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+
 # C extensions
 *.so
 
