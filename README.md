@@ -30,3 +30,23 @@ pip install -r requirements.txt
 
 # Run the FastAPI app
 uvicorn app:app --reload
+
+## Frontend Setup (Flutter)
+
+### Prerequisites
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- Android Studio / VSCode (with Flutter extensions)
+
+### Setup Instructions
+```bash
+# Navigate to the frontend directory
+cd stock-signal-app/frontend
+
+# Get Flutter dependencies
+flutter pub get
+
+# Connect a physical device or start an emulator
+
+# Run the Flutter app
+flutter run
+
