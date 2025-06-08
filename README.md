@@ -15,22 +15,6 @@ An AI-powered mobile application that helps users make better stock trading deci
 - Personalized Buy/Sell/Hold Signals
 - Portfolio Management
 
-## Getting Started
-
-### Backend Setup
-```bash
-# Clone the repository
-git clone https://github.com/your-username/stock-signal-app.git
-
-# Navigate to the backend
-cd stock-signal-app/backend
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the FastAPI app
-uvicorn app:app --reload
-
 ## Frontend Setup (Flutter)
 
 ### Prerequisites
@@ -49,4 +33,22 @@ flutter pub get
 
 # Run the Flutter app
 flutter run
+
+
+## Getting Started
+
+### Backend Setup
+```bash
+# Clone the repository
+git clone https://github.com/your-username/stock-signal-app.git
+
+# Navigate to the backend
+cd stock-signal-app/backend
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the FastAPI app
+uvicorn app:app --reload
+
 
