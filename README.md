@@ -1,44 +1,53 @@
-# Stock Signal App
+# 📈 Stock Signal App
 
-An AI-powered mobile application that helps users make better stock trading decisions based on technical indicators.
+An AI-powered web application that helps users make better stock trading decisions based on technical indicators.
 
-## Tech Stack
+---
+
+## 🚀 Tech Stack
 - **Backend**: FastAPI (Python)
-- **Frontend**: React (JavaScript)
-- **Database**: PostgreSQL
-- **APIs**: Alpha Vantage / Yahoo Finance
+- **Frontend**: React (JavaScript, Vite)
+- **APIs**: Yahoo Finance (via `yfinance`)
 
-## Features
-- User Authentication (JWT)
+---
+
+## 🔥 Features
 - Real-time Stock Data Fetching
-- Technical Analysis: RSI, MACD, Moving Averages
-- Personalized Buy/Sell/Hold Signals
-- Portfolio Management
+- Technical Analysis: Moving Averages
+- Personalized Buy/Sell Signals
 
-## Frontend Setup (React)
+---
+
+## 🛠️ Getting Started
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) with npm
+- [Python 3.8+](https://www.python.org/)
+- [pip](https://pip.pypa.io/en/stable/)
 
-### Setup Instructions
+---
 
-## Getting Started
+### 🚧 Backend Setup (FastAPI)
 
-### Backend Setup
 ```bash
 # Navigate to the backend
-cd stock-signal-app/backend
+cd backend
 
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
 
 # Run the FastAPI app
-uvicorn app.main:app --reload
+uvicorn main:app --reload
 ```
+### 🎨 Frontend Setup (React + Vite)
 
-## Backend API
+```bash
+# Navigate to the frontend
+cd frontend
 
-- `/price/{symbol}` – return the latest closing price for `symbol`.
-- `/signal/{symbol}` – compute a basic moving-average signal for `symbol`.
-- `/fetch_stock/{symbol}` – return price, moving average and signal in one response.
+# Install Node dependencies
+npm install
 
+# Start the React development server
+npm run dev
+```
