@@ -25,3 +25,31 @@ def test_get_signal(monkeypatch):
     _patch_yfinance(monkeypatch)
     client = TestClient(app)
     res = client.get("/signal/TEST?period=1")
+    assert res.status_code == 200
+    assert res.json()["signal"] in {"buy", "sell"}
+
+
+def test_fetch_stock(monkeypatch):
+    _patch_yfinance(monkeypatch)
+    client = TestClient(app)
+    res = client.get("/fetch_stock/TEST?period=1")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["price"] == 110
+    assert "moving_average" in data
+    assert data["signal"] in {"buy", "sell"}
+
+
+def test_fetch_stocks(monkeypatch):
+    _patch_yfinance(monkeypatch)
+    client = TestClient(app)
+    res = client.get("/fetch_stocks?symbols=AAA,BBB&period=1")
+    assert res.status_code == 200
+    items = res.json()
+    assert isinstance(items, list)
+    assert len(items) == 2
+    for item in items:
+        assert item["price"] == 110
+        assert "moving_average" in item
+        assert item["signal"] in {"buy", "sell", "strong buy", "strong sell"}
+    res = client.get("/signal/TEST?period=1")
