@@ -52,3 +52,4 @@ def test_fetch_stocks(monkeypatch):
         assert item["price"] == 110
         assert "moving_average" in item
         assert item["signal"] in {"buy", "sell", "strong buy", "strong sell"}
+    res = client.get("/signal/TEST?period=1")

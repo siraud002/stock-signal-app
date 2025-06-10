@@ -1,6 +1,6 @@
-# Stock Signal App
+# 📈 Stock Signal App
 
-An AI-powered mobile application that helps users make better stock trading decisions based on technical indicators.
+An AI-powered web application that helps users make better stock trading decisions based on technical indicators.
 
 ## Tech Stack
 - **Backend**: FastAPI (Python)
@@ -22,16 +22,38 @@ An AI-powered mobile application that helps users make better stock trading deci
 
 ### Setup Instructions
 Open `frontend/index.html` in a browser. It loads the React app from `frontend/src/App.jsx`. Enter one or more symbols separated by commas to query the `/fetch_stocks` endpoint. For local API calls, ensure the FastAPI server is running on `http://localhost:8000`.
+---
 
+## 🚀 Tech Stack
+- **Backend**: FastAPI (Python)
+- **Frontend**: React (JavaScript, Vite)
+- **APIs**: Yahoo Finance (via `yfinance`)
 
-## Getting Started
+---
 
-### Backend Setup
+## 🔥 Features
+- Real-time Stock Data Fetching
+- Technical Analysis: Moving Averages
+- Personalized Buy/Sell Signals
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) with npm
+- [Python 3.8+](https://www.python.org/)
+- [pip](https://pip.pypa.io/en/stable/)
+
+---
+
+### 🚧 Backend Setup (FastAPI)
+
 ```bash
 # Navigate to the backend
-cd stock-signal-app/backend
+cd backend
 
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
 
 # Run the FastAPI app
@@ -46,3 +68,17 @@ The backend exposes these endpoints:
 - `/fetch_stock/{symbol}` – return price, moving average and signal in one response.
 - `/fetch_stocks?symbols=AAPL,MSFT` – return price, moving average and signal for multiple symbols at once.
 
+uvicorn main:app --reload
+```
+### 🎨 Frontend Setup (React + Vite)
+
+```bash
+# Navigate to the frontend
+cd frontend
+
+# Install Node dependencies
+npm install
+
+# Start the React development server
+npm run dev
+```
