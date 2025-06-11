@@ -52,4 +52,18 @@ def test_fetch_stocks(monkeypatch):
         assert item["price"] == 110
         assert "moving_average" in item
         assert item["signal"] in {"buy", "sell", "strong buy", "strong sell"}
+
+def test_screen(monkeypatch):
+    _patch_yfinance(monkeypatch)
+    client = TestClient(app)
+    res = client.get("/screen?short_ma=1&long_ma=2")
+    assert res.status_code == 200
+    items = res.json()
+    assert isinstance(items, list)
+    assert len(items) == 4
+    for item in items:
+        assert item["signal"] == "buy"
+        assert item["price"] == 110
+        assert "sma_short" in item
+        assert "sma_long" in item
     res = client.get("/signal/TEST?period=1")

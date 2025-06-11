@@ -3,6 +3,10 @@ function App() {
   const [symbols, setSymbols] = React.useState('');
   const [results, setResults] = React.useState([]);
 
+function App() {
+  const [symbols, setSymbols] = React.useState('');
+  const [results, setResults] = React.useState([]);
+
 import React from 'react';
 import axios from 'axios';
 import './App.css';

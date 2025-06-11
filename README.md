@@ -40,6 +40,7 @@ Open `frontend/index.html` in a browser. It loads the React app from `frontend/s
 
 ## 🛠️ Getting Started
 
+### Backend Setup
 ### Prerequisites
 - [Node.js](https://nodejs.org/) with npm
 - [Python 3.8+](https://www.python.org/)
@@ -62,6 +63,12 @@ uvicorn app.main:app --reload
 
 ## Backend API
 The backend exposes these endpoints:
+
+- `/price/{symbol}` – return the latest closing price for `symbol`.
+- `/signal/{symbol}` – compute a basic moving-average signal for `symbol`.
+- `/fetch_stock/{symbol}` – return price, moving average and signal in one response.
+- `/fetch_stocks?symbols=AAPL,MSFT` – return price, moving average and signal for multiple symbols at once.
+- `/screen?short_ma=20&long_ma=50` – screen built-in tickers for a bullish moving-average crossover.
 
 - `/price/{symbol}` – return the latest closing price for `symbol`.
 - `/signal/{symbol}` – compute a basic moving-average signal for `symbol`.

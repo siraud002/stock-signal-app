@@ -1,6 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import yfinance as yf
+import pandas as pd
+
+app = FastAPI(title="Stock Signal API")
+
+# Enable CORS for all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
 
 app = FastAPI(title="Stock Signal API")
 
@@ -52,7 +60,7 @@ async def fetch_stock(symbol: str, period: int = 50):
         return {"symbol": symbol, "price": price, "moving_average": ma, "signal": signal}
     except Exception as exc:
         raise HTTPException(status_code=404, detail=str(exc))
-        
+  
 @app.get("/fetch_stocks")
 async def fetch_stocks(symbols: str, period: int = 50):
     """Return price, moving average and signal for multiple symbols.
@@ -79,4 +87,34 @@ async def fetch_stocks(symbols: str, period: int = 50):
             results.append({"symbol": symbol, "price": price, "moving_average": ma, "signal": signal})
         except Exception as exc:
             results.append({"symbol": symbol, "error": str(exc)})
+    return results
+
+@app.get("/screen")
+async def screen(short_ma: int = 20, long_ma: int = 50):
+    """Return tickers where short moving average is above long moving average."""
+    tickers = ["AAPL", "MSFT", "GOOG", "TSLA"]
+    results = []
+    for symbol in tickers:
+        try:
+            ticker = yf.Ticker(symbol)
+            data = ticker.history(period=f"{long_ma * 2}d")
+            if data.empty:
+                continue
+            sma_short = data["Close"].rolling(window=short_ma).mean().iloc[-1]
+            sma_long = data["Close"].rolling(window=long_ma).mean().iloc[-1]
+            if pd.isna(sma_short) or pd.isna(sma_long):
+                continue
+            sma_short = float(sma_short)
+            sma_long = float(sma_long)
+            price = float(data["Close"].iloc[-1])
+            if sma_short > sma_long:
+                results.append({
+                    "symbol": symbol,
+                    "price": price,
+                    "sma_short": sma_short,
+                    "sma_long": sma_long,
+                    "signal": "buy"
+                })
+        except Exception:
+            continue
     return results
