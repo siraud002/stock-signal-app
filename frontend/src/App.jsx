@@ -1,6 +1,19 @@
+
 function App() {
   const [symbols, setSymbols] = React.useState('');
   const [results, setResults] = React.useState([]);
+
+function App() {
+  const [symbols, setSymbols] = React.useState('');
+  const [results, setResults] = React.useState([]);
+
+import React from 'react';
+import axios from 'axios';
+import './App.css';
+
+function App() {
+  const [symbol, setSymbol] = React.useState('');
+  const [data, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
@@ -15,6 +28,15 @@ function App() {
       setResults(res.data);
     } catch (err) {
       setError('Invalid symbol(s) or server error.');
+    if (!symbol) return;
+    setLoading(true);
+    setError('');
+    setData(null);
+    try {
+      const res = await axios.get(`http://localhost:8000/fetch_stock/${symbol}`);
+      setData(res.data);
+    } catch (err) {
+      setError('Invalid symbol or server error.');
     } finally {
       setLoading(false);
     }
@@ -28,6 +50,9 @@ function App() {
           value={symbols}
           onChange={(e) => setSymbols(e.target.value)}
           placeholder="Enter symbols, comma separated"
+          value={symbol}
+          onChange={(e) => setSymbol(e.target.value)}
+          placeholder="Enter symbol"
         />
         <button type="submit">Fetch</button>
       </form>
@@ -55,6 +80,12 @@ function App() {
               ))}
             </tbody>
           </table>
+      {data && !loading && (
+        <div className="card">
+          <h2>{data.symbol}</h2>
+          <p>Price: {data.price}</p>
+          <p>Moving Average: {data.moving_average}</p>
+          <p>Signal: {data.signal}</p>
         </div>
       )}
     </div>
@@ -62,3 +93,4 @@ function App() {
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
+export default App;

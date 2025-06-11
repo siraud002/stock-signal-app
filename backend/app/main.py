@@ -9,6 +9,13 @@ app = FastAPI(title="Stock Signal API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+
+app = FastAPI(title="Stock Signal API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # <-- Allow all origins for development; for production, restrict it!
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -39,7 +46,6 @@ async def get_signal(symbol: str, period: int = 50):
     except Exception as exc:
         raise HTTPException(status_code=404, detail=str(exc))
 
-
 @app.get("/fetch_stock/{symbol}")
 async def fetch_stock(symbol: str, period: int = 50):
     """Return price, moving average and signal in one request."""
@@ -54,8 +60,7 @@ async def fetch_stock(symbol: str, period: int = 50):
         return {"symbol": symbol, "price": price, "moving_average": ma, "signal": signal}
     except Exception as exc:
         raise HTTPException(status_code=404, detail=str(exc))
-
-
+  
 @app.get("/fetch_stocks")
 async def fetch_stocks(symbols: str, period: int = 50):
     """Return price, moving average and signal for multiple symbols.
@@ -83,7 +88,6 @@ async def fetch_stocks(symbols: str, period: int = 50):
         except Exception as exc:
             results.append({"symbol": symbol, "error": str(exc)})
     return results
-
 
 @app.get("/screen")
 async def screen(short_ma: int = 20, long_ma: int = 50):
