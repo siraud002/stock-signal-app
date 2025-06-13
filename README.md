@@ -4,7 +4,7 @@ An AI-powered mobile application that helps users make better stock trading deci
 
 ## Tech Stack
 - **Backend**: FastAPI (Python)
-- **Frontend**: Flutter (Dart)
+- **Frontend**: React (JavaScript)
 - **Database**: PostgreSQL
 - **APIs**: Alpha Vantage / Yahoo Finance
 
@@ -15,33 +15,19 @@ An AI-powered mobile application that helps users make better stock trading deci
 - Personalized Buy/Sell/Hold Signals
 - Portfolio Management
 
-## Frontend Setup (Flutter)
+## Frontend Setup (React)
 
 ### Prerequisites
-- [Flutter SDK](https://flutter.dev/docs/get-started/install)
-- Android Studio / VSCode (with Flutter extensions)
+- [Node.js](https://nodejs.org/) with npm
 
 ### Setup Instructions
-```bash
-# Navigate to the frontend directory
-cd stock-signal-app/frontend
-
-# Get Flutter dependencies
-flutter pub get
-
-# Connect a physical device or start an emulator
-
-# Run the Flutter app
-flutter run
+Open `frontend/index.html` in a browser. It loads the React app from `frontend/src/App.jsx`. For local API calls, ensure the FastAPI server is running on `http://localhost:8000`.
 
 
 ## Getting Started
 
 ### Backend Setup
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/stock-signal-app.git
-
 # Navigate to the backend
 cd stock-signal-app/backend
 
@@ -49,6 +35,14 @@ cd stock-signal-app/backend
 pip install -r requirements.txt
 
 # Run the FastAPI app
-uvicorn app:app --reload
+uvicorn app.main:app --reload
+```
 
+## Backend API
+The backend exposes these endpoints:
+
+- `/price/{symbol}` – return the latest closing price for `symbol`.
+- `/signal/{symbol}` – compute a basic moving-average signal for `symbol`.
+- `/fetch_stock/{symbol}` – return price, moving average and signal in one response.
+- `/compression_screen` – scan a predefined list of tickers for moving average compression setups.
 
