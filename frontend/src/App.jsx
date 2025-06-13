@@ -1,42 +1,34 @@
-
-function App() {
-  const [symbols, setSymbols] = React.useState('');
-  const [results, setResults] = React.useState([]);
-
-function App() {
-  const [symbols, setSymbols] = React.useState('');
-  const [results, setResults] = React.useState([]);
-
 import React from 'react';
 import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [symbol, setSymbol] = React.useState('');
-  const [data, setData] = React.useState(null);
+  const [symbols, setSymbols] = React.useState('');
+  const [shortMA, setShortMA] = React.useState(20);
+  const [longMA, setLongMA] = React.useState(50);
+  const [results, setResults] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!symbols) return;
+
     setLoading(true);
     setError('');
     setResults([]);
+
     try {
-      const res = await axios.get('http://localhost:8000/fetch_stocks', { params: { symbols } });
+      const res = await axios.get('http://localhost:8000/screen', {
+        params: {
+          symbols,
+          short_ma: shortMA,
+          long_ma: longMA,
+        },
+      });
       setResults(res.data);
     } catch (err) {
-      setError('Invalid symbol(s) or server error.');
-    if (!symbol) return;
-    setLoading(true);
-    setError('');
-    setData(null);
-    try {
-      const res = await axios.get(`http://localhost:8000/fetch_stock/${symbol}`);
-      setData(res.data);
-    } catch (err) {
-      setError('Invalid symbol or server error.');
+      setError('Server error while running screener.');
     } finally {
       setLoading(false);
     }
@@ -44,53 +36,69 @@ function App() {
 
   return (
     <div style={{ textAlign: 'center', width: '100%' }}>
-      <h1>Stock Signal</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={symbols}
-          onChange={(e) => setSymbols(e.target.value)}
-          placeholder="Enter symbols, comma separated"
-          value={symbol}
-          onChange={(e) => setSymbol(e.target.value)}
-          placeholder="Enter symbol"
-        />
-        <button type="submit">Fetch</button>
+      <h1>Custom Stock Screener</h1>
+
+      <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '10px' }}>
+          <input
+            type="text"
+            value={symbols}
+            onChange={(e) => setSymbols(e.target.value)}
+            placeholder="Enter symbols (comma-separated)"
+            style={{ width: '300px' }}
+          />
+        </div>
+        <div style={{ marginBottom: '10px' }}>
+          <label>Short MA: </label>
+          <input
+            type="number"
+            value={shortMA}
+            onChange={(e) => setShortMA(e.target.value)}
+            style={{ width: '60px' }}
+          />
+          &nbsp;&nbsp;
+          <label>Long MA: </label>
+          <input
+            type="number"
+            value={longMA}
+            onChange={(e) => setLongMA(e.target.value)}
+            style={{ width: '60px' }}
+          />
+        </div>
+        <button type="submit">Run Screener</button>
       </form>
+
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
-      {results.length > 0 && !loading && (
-        <div className="card">
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+
+      {results.length > 0 && (
+        <div className="card" style={{ marginTop: '20px' }}>
+          <table style={{ width: '80%', margin: '0 auto', borderCollapse: 'collapse', border: '1px solid #ddd' }}>
             <thead>
-              <tr>
-                <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Symbol</th>
-                <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Price</th>
-                <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Moving Avg</th>
-                <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Signal</th>
+              <tr style={{ backgroundColor: '#f2f2f2' }}>
+                <th style={{ border: '1px solid #ddd', padding: '10px' }}>Symbol</th>
+                <th style={{ border: '1px solid #ddd', padding: '10px' }}>Price</th>
+                <th style={{ border: '1px solid #ddd', padding: '10px' }}>SMA Short</th>
+                <th style={{ border: '1px solid #ddd', padding: '10px' }}>SMA Long</th>
+                <th style={{ border: '1px solid #ddd', padding: '10px' }}>Signal</th>
               </tr>
             </thead>
             <tbody>
-              {results.map((item) => (
-                <tr key={item.symbol}>
-                  <td style={{ borderBottom: '1px solid #eee', padding: '8px' }}>{item.symbol}</td>
-                  <td style={{ borderBottom: '1px solid #eee', padding: '8px' }}>{item.price}</td>
-                  <td style={{ borderBottom: '1px solid #eee', padding: '8px' }}>{item.moving_average}</td>
-                  <td style={{ borderBottom: '1px solid #eee', padding: '8px' }}>{item.signal}</td>
+              {results.map((item, index) => (
+                <tr key={item.symbol} style={{ backgroundColor: index % 2 === 0 ? '#fff' : '#f9f9f9' }}>
+                  <td style={{ border: '1px solid #ddd', padding: '10px' }}>{item.symbol}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '10px' }}>{item.price}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '10px' }}>{item.sma_short}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '10px' }}>{item.sma_long}</td>
+                  <td style={{ border: '1px solid #ddd', padding: '10px' }}>{item.signal}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-      {data && !loading && (
-        <div className="card">
-          <h2>{data.symbol}</h2>
-          <p>Price: {data.price}</p>
-          <p>Moving Average: {data.moving_average}</p>
-          <p>Signal: {data.signal}</p>
         </div>
       )}
     </div>
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
 export default App;
