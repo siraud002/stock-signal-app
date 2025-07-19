@@ -33,7 +33,7 @@ flutter pub get
 
 # Run the Flutter app
 flutter run
-
+```
 
 ## Getting Started
 
@@ -51,4 +51,5 @@ pip install -r requirements.txt
 # Run the FastAPI app
 uvicorn app:app --reload
 
+```
 
